@@ -1,14 +1,25 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h2>{{ $technology->name }}</h2>
+    <div>
+        <h2>{{ $technology->name }}</h2>
+        <p>{{ $technology->description }}</p> <!-- Aggiungi la descrizione qui -->
+    </div>
 
-    <h5 class="mt-4">Post</h5>
-    @foreach ($technology->posts as $post)
-        <div>
-            <a href="{{ route('admin.posts.show', ['post' => $post->slug]) }}">
-                {{ $post->name }}
-            </a>
-        </div>
-    @endforeach
+    <div>
+        <h5 class="mt-4">Posts</h5>
+        @if ($technology->posts->isNotEmpty())
+            <ul>
+                @foreach ($technology->posts as $post)
+                    <li>
+                        <a href="{{ route('admin.posts.show', ['post' => $post->slug]) }}">
+                            {{ $post->name }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        @else
+            <p>No posts found for this technology.</p>
+        @endif
+    </div>
 @endsection

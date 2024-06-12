@@ -56,7 +56,7 @@
                     <input class="form-check-input" @checked(in_array($technology->id, old('technologies', []))) name="technologies[]" type="checkbox" value="{{ $technology->id }}" id="technology-{{ $technology->id }}">
                     @else
                     {{-- Se non ci sono errori, l'utente sta caricando la pagina da zero allora voglio prepopolare le checkbox utilizzando il contains della collection --}}
-                    <input class="form-check-input" @checked($project->technologies->contains($technology)) name="technologies[]" type="checkbox" value="{{ $technology->id }}" id="technology-{{ $technology->id }}">
+                    <input class="form-check-input" @checked($post->technologies->contains($technology)) name="technologies[]" type="checkbox" value="{{ $technology->id }}" id="technology-{{ $technology->id }}">
                     @endif
         
                     <label class="form-check-label" for="technology-{{ $technology->id }}">

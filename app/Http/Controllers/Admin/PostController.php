@@ -66,29 +66,29 @@ class PostController extends Controller
     {
         $validatedData = $this->validation($request->all());
         $validatedData['slug'] = Str::slug($validatedData['name'], '-');
-
+    
         $post = Post::findOrFail($id);
         $formData = $request->all();
-
+    
         if ($request->hasFile('cover_image')) {
             if ($post->cover_image) {
                 Storage::disk('public')->delete($post->cover_image);
             }
-
+    
             $img_path = Storage::disk('public')->put('post_images', $request->file('cover_image'));
             $formData['cover_image'] = $img_path;
         }
-
+    
         $post->update($formData);
-
+    
         if ($request->has('technologies')) {
             $post->technologies()->sync($request->input('technologies'));
         } else {
             $post->technologies()->sync([]);
         }
-
+    
         return redirect()->route('admin.posts.show', $post->id)->with('message', $post->name . ' successfully updated.');
-    }
+    }    
 
     public function destroy($id)
     {

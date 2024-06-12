@@ -4,12 +4,14 @@
     <h2>All Technologies</h2>
 
     <ul>
-        @foreach ($technologies as $technology)
+        @forelse ($technologies as $technology)
             <li>
                 <a href="{{ route('admin.technologies.show', ['technology' => $technology->slug]) }}">
                     {{ $technology->name }}
                 </a>
             </li>
-        @endforeach
+        @empty
+            <p>No technologies found.</p>
+        @endforelse
     </ul>
 @endsection

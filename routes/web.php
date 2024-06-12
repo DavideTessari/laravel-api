@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\TechnologyController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,19 +24,14 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth', 'verified'])
-->name('admin.')
-->prefix('admin')
-->group(function() {
-    // Rotte di amministrazione
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('posts', PostController::class)->parameters([
-        'posts' => 'post:slug' 
-    ]);
+    ->name('admin.')
+    ->prefix('admin')
+    ->group(function() {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('posts', PostController::class);
+        Route::resource('technologies', TechnologyController::class);
+    });
 
-     Route::resource('technologies', TechnologyController::class)->parameters([
-        'technologies' => 'technology:slug' 
-    ]);
-});
 
 
 Route::middleware('auth')->group(function () {
